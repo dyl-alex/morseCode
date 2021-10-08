@@ -17,9 +17,23 @@ class morseCode {
         decode(code, morseCodes, alphabet);
     }
 
+    // start from front of code variable, check every letter individually, then recursively call it
+    // again using substring to remove the front letter- repeat. once code.length() = 0, break.
     public static void decode(String code, String[] decrypter, String[] alphabet) {
-        for (int i = 0; i < decrypter.length; i++) {
-          
+        if (code.length() == 0) {
+            System.out.println("end");
+        } else {
+            for (int i = 0; i < code.length(); i++) {
+                for (int j = 0; j < decrypter.length; j++) {
+                    if ((code.substring(0, i)).equals(decrypter[j])) {
+                        System.out.print(alphabet[j] + " ");
+                    } else {
+                        continue;
+                    }
+                }
+            }
+            System.out.println("");
+            decode(code.substring(1,code.length() - 1), decrypter, alphabet);
         }
     }
 }
