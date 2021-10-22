@@ -13,27 +13,38 @@ class morseCode {
         Scanner kbReader = new Scanner(System.in);
         System.out.println("Please enter your code");
         String code = kbReader.nextLine();
+        ArrayList<String> wordThing = new ArrayList<String>();
+
+        for (int i = 0; i < wordThing.size(); i++) {
+            wordThing.add(code.substring(i));
+        }
+
 
         decode(code, morseCodes, alphabet);
+
+        
     }
 
     // start from front of code variable, check every letter individually, then recursively call it
     // again using substring to remove the front letter- repeat. once code.length() = 0, break.
     public static void decode(String code, String[] decrypter, String[] alphabet) {
-        if (code.length() == 0) {
-            System.out.println("end");
+        
+        String combo = "";
+        if (code.length() == 1) {
+            for (int i = 0; i < decrypter.length; i++) {
+                if (code.equals(decrypter[i])) {
+                    combo = combo + alphabet[i];
+                }
+            }
         } else {
             for (int i = 0; i < code.length(); i++) {
                 for (int j = 0; j < decrypter.length; j++) {
-                    if ((code.substring(0, i)).equals(decrypter[j])) {
-                        System.out.print(alphabet[j] + " ");
-                    } else {
-                        continue;
+                    if ((code.substring(i, code.length())).equals(decrypter[j])) {
+                        combo = combo + alphabet[j];
+                        decode(code.substring(decrypter[j].length()), decrypter, alphabet);
                     }
                 }
             }
-            System.out.println("");
-            decode(code.substring(1,code.length() - 1), decrypter, alphabet);
         }
     }
 }
