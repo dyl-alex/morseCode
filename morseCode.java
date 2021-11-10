@@ -20,31 +20,37 @@ class morseCode {
         }
 
 
-        decode(code, morseCodes, alphabet);
+        decode(code, 0);
 
         
     }
 
+    public static String morseToString(String x) {
+        for (int i = 0; i < morseCodes.length; i++ ) {
+            if (morseCodes[i].equals(x)) {
+                return alphabet[i];
+            } else {
+                continue;
+            }
+        }
+        return "";
+    }
+
     // start from front of code variable, check every letter individually, then recursively call it
     // again using substring to remove the front letter- repeat. once code.length() = 0, break.
-    public static void decode(String code, String[] decrypter, String[] alphabet) {
+    public static void decode(String code, int pos) {
         
         String combo = "";
         if (code.length() == 1) {
-            for (int i = 0; i < decrypter.length; i++) {
-                if (code.equals(decrypter[i])) {
-                    combo = combo + alphabet[i];
-                }
-            }
+            System.out.print(morseToString(code));
         } else {
             for (int i = 0; i < code.length(); i++) {
-                for (int j = 0; j < decrypter.length; j++) {
-                    if ((code.substring(i, code.length())).equals(decrypter[j])) {
-                        combo = combo + alphabet[j];
-                        decode(code.substring(decrypter[j].length()), decrypter, alphabet);
-                    }
-                }
+                System.out.print(morseToString(code.substring(i)));
             }
+            System.out.println(" ");
+            decode(code.substring(1), pos + 1);
+            decode(code.substring(0, code.length() - 1), code.length());
+
         }
     }
 }
